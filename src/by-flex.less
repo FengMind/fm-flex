@@ -1,0 +1,277 @@
+/**********************************************
+ * Title: by-flex
+ * Desc: one 24 grid layout style for Flex
+ * Author: FengMind (枫鸽) <FengMind@qq.com>
+ * Org: BaiYouData <http://www.baiyouapp.com>
+ * Date: 2018-8-25
+ **********************************************/
+
+@prefix: by;
+@total-column: 24;
+
+/*******************
+ * 1、Container
+ *******************/
+
+// justify-content
+.build-justify() {
+  &.justify-start {
+    justify-content: flex-start;
+  }
+  &.justify-end {
+    justify-content: flex-end;
+  }
+  &.justify-center {
+    justify-content: center;
+  }
+  &.justify-space-between {
+    justify-content: space-between;
+  }
+  &.justify-space-around {
+    justify-content: space-around;
+  }
+}
+
+// align-items
+.build-align() {
+  &.align-start {
+    align-items: flex-start;
+  }
+  &.align-end {
+    align-items: flex-end;
+  }
+  &.align-center {
+    align-items: center;
+  }
+  &.align-baseline {
+    align-items: baseline;
+  }
+  &.align-stretch {
+    align-items: stretch;
+  }
+}
+
+// align-content
+.build-align-content() {
+  &.align-content-start {
+    align-content: flex-start;
+  }
+  &.align-content-end {
+    align-content: flex-end;
+  }
+  &.align-content-center {
+    align-content: center;
+  }
+  &.align-content-space-between {
+    align-content: space-between;
+  }
+  &.align-content-space-around {
+    align-content: space-around;
+  }
+  &.align-content-stretch {
+    align-content: stretch;
+  }
+}
+
+// before-after
+.build-before-after() {
+  &:before, &:after {
+    // content: "";
+    display: flex;
+    box-sizing: border-box;
+    width: 0;
+    height: 0;
+    font-size: 0;
+  }
+  &:after {
+    clear: both;
+  }
+  &.before-content {
+    content: "";
+  }
+  &.after-content {
+    content: "";
+  }
+}
+
+// container
+.build-container(@direction) {
+  .@{prefix}-@{direction} {
+    display: flex;
+    flex-wrap: wrap;
+    .build-before-after();
+
+    flex-direction: @direction;
+    justify-content: space-between; // 默认
+    align-items: center; // 默认
+    align-content: flex-start; // 默认
+
+    .build-justify();
+    .build-align();
+    .build-align-content();
+  }
+}
+
+.build-container(row);
+.build-container(row-reverse);
+.build-container(column);
+.build-container(column-reverse);
+
+/*******************
+ * 2、Grid
+ *******************/
+
+// grid - offset order
+.build-grid(@i) when (@i > 0) {
+  .build-grid((@i - 1));
+
+  // item
+  .@{prefix}-item-@{i} {
+    width: percentage(@i / @total-column);
+  }
+
+  // offset、order
+  [class*='@{prefix}-item'] {
+    &.offset-@{i} {
+      margin-left: percentage(@i / @total-column);
+    }
+    &.order-@{i} {
+      order: @i;
+    }
+  }
+}
+
+.build-grid(@total-column);
+
+// item - self-definition
+[class*='@{prefix}-item'] {
+  float: left;
+  height: 100px;
+  background: red;
+  // flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+  flex: 0 0 auto;
+  // felx-grow
+  &.flex-grow {
+    flex-grow: 1;
+  }
+  // align-self
+  &.self-auto {
+    align-self: auto;
+  }
+  &.self-start {
+    align-self: flex-start;
+  }
+  &.self-end {
+    align-self: flex-end;
+  }
+  &.self-center {
+    align-self: center;
+  }
+  &.self-baseline {
+    align-self: baseline;
+  }
+  &.self-stretch {
+    align-self: stretch;
+  }
+
+  &.flex-left {
+    margin-right: auto;
+  }
+  &.flex-right {
+    margin-left: auto;
+  }
+  &.flex-top {
+    margin-bottom: auto;
+  }
+  &.flex-bottom {
+    margin-top: auto;
+  }
+  &.flex-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.flex-middle {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+/*******************
+ * 3、Responsive
+ *******************/
+// show hide
+[class*='-show'] {
+  display: block;
+}
+
+[class*='-hide'] {
+  display: none;
+}
+
+[class*='only-show'] {
+  display: none;
+}
+
+[class*='only-hide'] {
+  display: block;
+}
+
+// item
+.build-responsive-item(@i,@screen) when (@i > 0) {
+  .build-responsive-item((@i - 1),@screen);
+  .@{prefix}-item-@{screen}-@{i} {
+    width: percentage(@i / @total-column);
+  }
+}
+
+// grid - show - hide - only
+.build-responsive-gird() {
+  @media (max-width: 575.98px) {
+    .build-responsive-item(@total-column,xs);
+    .@{prefix}-xs-only-show {
+      display: block;
+    }
+    .@{prefix}-xs-only-hide {
+      display: none;
+    }
+  }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .build-responsive-item(@total-column,sm);
+    .@{prefix}-sm-only-show {
+      display: block;
+    }
+    .@{prefix}-sm-only-hide {
+      display: none;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .build-responsive-item(@total-column,md);
+    .@{prefix}-md-only-show {
+      display: block;
+    }
+    .@{prefix}-md-only-hide {
+      display: none;
+    }
+  }
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .build-responsive-item(@total-column,lg);
+    .@{prefix}-lg-only-show {
+      display: block;
+    }
+    .@{prefix}-lg-only-hide {
+      display: none;
+    }
+  }
+  @media (min-width: 1200px) {
+    .build-responsive-item(@total-column,xl);
+    .@{prefix}-xl-only-show {
+      display: block;
+    }
+    .@{prefix}-xl-only-hide {
+      display: none;
+    }
+  }
+
+}
+
+.build-responsive-gird();
