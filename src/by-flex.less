@@ -1,10 +1,10 @@
-/**********************************************
+/*********************************************************
  * Title: by-flex
- * Desc: one 24 grid layout style for Flex
+ * Desc: one 24 grid style based flex-layout by baiyoudata
  * Author: FengMind (枫鸽) <FengMind@qq.com>
  * Org: BaiYouData <http://www.baiyouapp.com>
  * Date: 2018-8-25
- **********************************************/
+ *********************************************************/
 
 @prefix: by;
 @total-column: 24;
@@ -146,8 +146,6 @@
 // item - self-definition
 [class*='@{prefix}-item'] {
   float: left;
-  height: 100px;
-  background: red;
   // flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
   flex: 0 0 auto;
   // felx-grow
@@ -234,6 +232,10 @@
     .@{prefix}-xs-only-hide {
       display: none;
     }
+    .by-container{
+      width: 100%;
+      margin: 0 10px;
+    }
   }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .build-responsive-item(@total-column,sm);
@@ -242,6 +244,10 @@
     }
     .@{prefix}-sm-only-hide {
       display: none;
+    }
+    .by-container{
+      width: 100%;
+      margin: 0 10px;
     }
   }
   @media (min-width: 768px) and (max-width: 991.98px) {
@@ -252,6 +258,10 @@
     .@{prefix}-md-only-hide {
       display: none;
     }
+    .by-container{
+      width: 800px;
+      margin: 0 auto;
+    }
   }
   @media (min-width: 992px) and (max-width: 1199.98px) {
     .build-responsive-item(@total-column,lg);
@@ -261,6 +271,10 @@
     .@{prefix}-lg-only-hide {
       display: none;
     }
+    .by-container{
+      width: 1040px;
+      margin: 0 auto;
+    }
   }
   @media (min-width: 1200px) {
     .build-responsive-item(@total-column,xl);
@@ -269,6 +283,10 @@
     }
     .@{prefix}-xl-only-hide {
       display: none;
+    }
+    .by-container{
+      width: 1200px;
+      margin: 0 auto;
     }
   }
 

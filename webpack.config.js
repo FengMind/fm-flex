@@ -3,7 +3,7 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "./dist"),
-        filename: "js/index.js",
+        filename: "js/by-flex.js",
     },
 
     //以下是服务环境配置
