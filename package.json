@@ -1,7 +1,7 @@
 {
-  "name": "by-flex",
-  "version": "0.0.1",
-  "description": "build one flex layout css style by baiyoudata",
+  "name": "fm-flex",
+  "version": "1.0",
+  "description": "build one 24 grid layout style based Flex",
   "main": "./dist/by-flex.css",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
